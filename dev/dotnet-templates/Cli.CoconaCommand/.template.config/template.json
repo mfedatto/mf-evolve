@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Mauricio Fedatto",
+  "classifications": [
+    "Console",
+    "Cocona"
+  ],
+  "groupIdentity": "MfCli.Templates",
+  "identity": "MfCli.Cocona.Command",
+  "name": "MFedatto Cocona Command",
+  "shortName": "mfcli.coconacommand",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "symbols": {
+    "Namespace": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Mf.Evolve.Cli.Commands",
+      "replaces": "__namespace__"
+    },
+    "Command": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "CamelCase o name of the new command",
+      "defaultValue": "New",
+      "replaces": "__command__"
+    },
+    "commandLower": {
+      "type": "generated",
+      "generator": "casing",
+      "parameters": {
+        "source": "Command",
+        "toLower": true
+      },
+      "replaces": "__command_lower__"
+    }
+  }
+}
