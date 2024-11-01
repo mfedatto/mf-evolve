@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Mauricio Fedatto",
+  "classifications": [
+    "Console",
+    "Cocona"
+  ],
+  "groupIdentity": "Mf.CrossCutting.Templates",
+  "identity": "Mf.CrossCutting.ContextBuilder",
+  "name": "MFedatto CrossCutting Context Builder - CoconaApp",
+  "shortName": "mfcc.contextbuilder.cocona",
+  "tags": {
+    "language": "C#",
+    "type": "item"
+  },
+  "symbols": {
+    "Namespace": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Mf.Evolve.CrossCutting",
+      "replaces": "__namespace__"
+    },
+    "Context": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "Name of the context for the new context builder",
+      "defaultValue": "Custom",
+      "replaces": "__context__"
+    }
+  }
+}
