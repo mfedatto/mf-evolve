@@ -6,9 +6,9 @@
     "Cocona"
   ],
   "groupIdentity": "MfCli.Templates",
-  "identity": "MfCli.Cocona.Command",
-  "name": "MFedatto Cocona Command",
-  "shortName": "mfcli.coconacommand",
+  "identity": "MfCli.Cocona.Command.ParamSet",
+  "name": "MFedatto Cocona Command ParamSet",
+  "shortName": "mfcli.coconacommand.paramset",
   "tags": {
     "language": "C#",
     "type": "item"
@@ -35,6 +35,13 @@
         "toLower": true
       },
       "replaces": "__command_lower__"
+    },
+    "ParamSet": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "CamelCase name of the new command ParamSet type",
+      "defaultValue": "ParamSet",
+      "replaces": "__paramset__"
     }
   }
 }
