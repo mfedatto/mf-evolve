@@ -6,17 +6,17 @@ using Mf.Evolve.CrossCutting.CompositionRoot.Extensions;
 namespace Mf.Evolve.Cli.Extensions;
 
 /// <summary>
-///     Provides extension methods for configuring <see cref="CoconaAppBuilder" /> and <see cref="CoconaApp" />.
+/// Provides extension methods for configuring <see cref="CoconaAppBuilder" /> and <see cref="CoconaApp" />.
 /// </summary>
 public static class StartupExtensions
 {
 	/// <summary>
-	///     Configures the <see cref="CoconaAppBuilder" /> by adding a composition root based on the specified startup context
-	///     builder.
+	/// Configures the <see cref="CoconaAppBuilder" /> by adding a composition root based on the specified startup context
+	/// builder.
 	/// </summary>
 	/// <typeparam name="TStartupContextBuilder">
-	///     The type of the startup context builder, which must implement
-	///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />.
+	/// The type of the startup context builder, which must implement
+	/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />.
 	/// </typeparam>
 	/// <param name="builder">The <see cref="CoconaAppBuilder" /> to configure.</param>
 	/// <returns>The configured <see cref="CoconaAppBuilder" />.</returns>
@@ -32,11 +32,11 @@ public static class StartupExtensions
 	}
 
 	/// <summary>
-	///     Configures the <see cref="CoconaApp" /> by adding commands from the specified startup context builder.
+	/// Configures the <see cref="CoconaApp" /> by adding commands from the specified startup context builder.
 	/// </summary>
 	/// <typeparam name="TStartupContextBuilder">
-	///     The type of the startup context builder, which must implement
-	///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />.
+	/// The type of the startup context builder, which must implement
+	/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />.
 	/// </typeparam>
 	/// <param name="app">The <see cref="CoconaApp" /> to configure.</param>
 	/// <returns>The configured <see cref="CoconaApp" />.</returns>

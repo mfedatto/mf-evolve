@@ -1,7 +1,9 @@
 using Cocona;
 using Cocona.Builder;
 using Mf.Evolve.CrossCutting.CompositionRoot;
+using Mf.Evolve.Domain.MigrationDefinitions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Mf.Evolve.CrossCutting;
@@ -9,9 +11,9 @@ namespace Mf.Evolve.CrossCutting;
 /// <summary>
 /// Implements the <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" /> and
 /// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" /> interfaces
-/// to provide configuration and installation logic for the CLI entrypoint.
+/// to provide configuration and installation logic for the Domain context.
 /// </summary>
-public class CliContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator
+public class DomainContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator
 {
 	/// <summary>
 	/// Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
@@ -22,6 +24,7 @@ public class CliContextBuilder : IContextBuilderInstaller, IContextBuilderAppCon
 		CoconaAppBuilder builder,
 		IConfiguration? configuration = null)
 	{
+		builder.Services.AddSingleton<MigrationDefinitionsFactory>();
 	}
 
 	/// <summary>

@@ -7,16 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Cocona" Version="2.2.0"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Mf.Evolve.Application\Mf.Evolve.Application.csproj" />
       <ProjectReference Include="..\Mf.Evolve.Domain\Mf.Evolve.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="DevTools\Templates\**\*.*" Visible="true" />
     </ItemGroup>
 
 </Project>

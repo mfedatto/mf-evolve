@@ -7,6 +7,8 @@
         <Nullable>enable</Nullable>
         <PublishAot>true</PublishAot>
         <InvariantGlobalization>true</InvariantGlobalization>
+        <AssemblyName>mf-evolve</AssemblyName>
+        <ApplicationIcon>Assets\mf.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +17,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Mf.Evolve.CrossCutting\Mf.Evolve.CrossCutting.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\" />
     </ItemGroup>
 
 </Project>
