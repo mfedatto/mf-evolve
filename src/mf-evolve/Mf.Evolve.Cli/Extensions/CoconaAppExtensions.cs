@@ -13,26 +13,28 @@ namespace Mf.Evolve.Cli.Extensions;
 /// This class contains methods for dynamically adding command classes based on the target namespace
 /// and program class. It handles command registration and retrieval of command class information.
 /// </remarks>
-[UnconditionalSuppressMessage(
-	"Trimming",
-	"IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code",
-	Justification = "Dynamic access is validated to ensure compatibility.")]
-[UnconditionalSuppressMessage(
-	"AOT",
-	"IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.",
-	Justification = "Dynamic code generation is validated and controlled for AOT compatibility.")]
-[UnconditionalSuppressMessage(
-	"Trimming",
-	"IL2060:Member annotated with 'RequiresUnreferencedCodeAttribute' may be removed by trimming.",
-	Justification = "Members are validated to ensure they are retained during trimming.")]
-[UnconditionalSuppressMessage(
-	"Trimming",
-	"IL2091:Calling members annotated with 'RequiresUnreferencedCodeAttribute' may break functionality when trimming.",
-	Justification = "Dynamic behavior is validated and conforms to trimming expectations.")]
-[UnconditionalSuppressMessage(
-	"Trimming",
-	"IL2090:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when trimming.",
-	Justification = "Dynamic behavior is carefully validated to ensure compatibility with trimming.")]
+[
+	UnconditionalSuppressMessage(
+		"Trimming",
+		"IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code",
+		Justification = "Dynamic access is validated to ensure compatibility."),
+	UnconditionalSuppressMessage(
+		"AOT",
+		"IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.",
+		Justification = "Dynamic code generation is validated and controlled for AOT compatibility."),
+	UnconditionalSuppressMessage(
+		"Trimming",
+		"IL2060:Member annotated with 'RequiresUnreferencedCodeAttribute' may be removed by trimming.",
+		Justification = "Members are validated to ensure they are retained during trimming."),
+	UnconditionalSuppressMessage(
+		"Trimming",
+		"IL2091:Calling members annotated with 'RequiresUnreferencedCodeAttribute' may break functionality when trimming.",
+		Justification = "Dynamic behavior is validated and conforms to trimming expectations."),
+	UnconditionalSuppressMessage(
+		"Trimming",
+		"IL2090:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when trimming.",
+		Justification = "Dynamic behavior is carefully validated to ensure compatibility with trimming.")
+]
 public static class CoconaAppExtensions
 {
 	/// <summary>
@@ -211,6 +213,8 @@ public static class CoconaAppExtensions
 			app.AddCommand(
 				commandName,
 				CreateCommandDelegate(instance));
+
+			return app;
 		}
 
 		app.AddCommand(
