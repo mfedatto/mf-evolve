@@ -13,6 +13,8 @@
     <ItemGroup>
       <ProjectReference Include="..\Mf.Evolve.Application\Mf.Evolve.Application.csproj" />
       <ProjectReference Include="..\Mf.Evolve.Domain\Mf.Evolve.Domain.csproj" />
+      <ProjectReference Include="..\Mf.Evolve.IO\Mf.Evolve.IO.csproj" />
+      <ProjectReference Include="..\Mf.Evolve.Service\Mf.Evolve.Service.csproj" />
     </ItemGroup>
 
     <ItemGroup>

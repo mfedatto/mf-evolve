@@ -1,0 +1,116 @@
+#file: noinspection SpellCheckingInspection
+- MigrationDefinitions:
+    Dbms: 'MySQL'
+    ConnectionStringTemplate:
+      ConnectionString: 'Server=%%DbServer%%;Database=%%Database%%;Uid=%%Username%%;Pwd=%%Password%%;'
+      PlaceholderPrefix: '%%'
+      PlaceholderSuffix: '%%'
+      Placeholders:
+        - DbServer: 'localhost'
+        - Database: 'sample001'
+        - Username: 'usr_sample'
+        - Password: '@mberDrum30'
+    WorkingDirectoryTemplate:
+      WorkingDirectory: 'C:\app\__app_name__\db\migrations'
+      PlaceholderPrefix: '__'
+      PlaceholderSuffix: '__'
+      Placeholders:
+        - app_name: 'SampleApp001'
+    Locations:
+      - '\dataset'
+      - '\versioned'
+      - '\repeatable'
+    Schemas:
+      - 'default'
+    PlaceholderPrefix: '${'
+    PlaceholderSuffix: '}'
+    Placeholders:
+      - InstanceName: 'InstanceSample001'
+    Command: 'migrate'
+    TransactionMode: 'CommitEach'
+    EraseDisabled: 'true'
+    EraseOnValidationError: 'false'
+    StartVersion: '0'
+    TargetVersion: 'null'
+    OutOfOrder: 'false'
+    SkipNextMigrations: 'false'
+    RetryRepeatableMigrationsUntilNoError: 'false'
+    EmbeddedResourceAssemblies:
+    EmbeddedResourceFilters:
+    CommandTimeout:
+    Encoding: 'UTF-8'
+    SqlMigrationPrefix: 'V'
+    SqlRepeatableMigrationPrefix: 'R'
+    SqlMigrationSeparator: '__'
+    SqlMigrationSuffix: '.sql'
+    MetadataTableSchema:
+    MetadataTableName: 'changelog'
+    EnableClusterMode: 'true'
+    Children:
+      - MigrationDefinitions:
+          Dbms: 'MySQL'
+          ConnectionStringTemplate:
+            ConnectionString: 'Server=%%DbServer%%;Database=%%Database%%;Uid=%%Username%%;Pwd=%%Password%%;'
+            PlaceholderPrefix: '%%'
+            PlaceholderSuffix: '%%'
+            Placeholders:
+              - DbServer: 'localhost'
+              - Database: 'sample001a'
+              - Username: 'usr_sample'
+              - Password: '@mberDrum30'
+          WorkingDirectoryTemplate:
+            WorkingDirectory: 'C:\app\__app_name__\db\migrations'
+            PlaceholderPrefix: '__'
+            PlaceholderSuffix: '__'
+            Placeholders:
+              - app_name: 'SampleApp001a'
+          Locations:
+            - '\dataset'
+            - '\versioned'
+            - '\repeatable'
+          Schemas:
+            - 'default'
+          Command: 'migrate'
+          TransactionMode: 'CommitEach'
+          EraseDisabled: 'true'
+          EraseOnValidationError: 'false'
+          StartVersion: '0'
+          TargetVersion: 'null'
+          OutOfOrder: 'false'
+          SkipNextMigrations: 'false'
+          RetryRepeatableMigrationsUntilNoError: 'false'
+          EmbeddedResourceAssemblies:
+          EmbeddedResourceFilters:
+          CommandTimeout:
+          Encoding: 'UTF-8'
+          SqlMigrationPrefix: 'V'
+          SqlRepeatableMigrationPrefix: 'R'
+          SqlMigrationSeparator: '__'
+          SqlMigrationSuffix: '.sql'
+          MetadataTableSchema:
+          MetadataTableName: 'changelog'
+          EnableClusterMode: 'true'
+          Children:
+      - MigrationDefinitions:
+          ConnectionStringTemplate:
+            Placeholders:
+              - Database: 'sample001b'
+          WorkingDirectoryTemplate:
+            Placeholders:
+              - app_name: 'SampleApp001b'
+          Locations:
+            - '\tests'
+          TransactionMode: 'CommitEach'
+          EraseDisabled: 'true'
+          EraseOnValidationError: 'true'
+- MigrationDefinitions:
+    Dbms: 'MySQL'
+    ConnectionStringTemplate:
+      ConnectionString: 'Server=_server;Database=_db;Uid=_usr;Pwd=_password;'
+    Locations:
+      - '\dataset'
+      - '\versioned'
+      - '\repeatable'
+    Schemas:
+      - 'default'
+    Command: 'migrate'

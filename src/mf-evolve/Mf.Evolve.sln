@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mf.Evolve.Domain", "Mf.Evol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mf.Evolve.Application", "Mf.Evolve.Application\Mf.Evolve.Application.csproj", "{507BEE4C-DA9B-4D48-8809-64BA7AA37C60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mf.Evolve.Service", "Mf.Evolve.Service\Mf.Evolve.Service.csproj", "{2A4972C7-B98A-4C13-A8AC-B5EBA226BE4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mf.Evolve.IO", "Mf.Evolve.IO\Mf.Evolve.IO.csproj", "{C5068599-0118-42DF-9059-D01C00AE025C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{507BEE4C-DA9B-4D48-8809-64BA7AA37C60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{507BEE4C-DA9B-4D48-8809-64BA7AA37C60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{507BEE4C-DA9B-4D48-8809-64BA7AA37C60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A4972C7-B98A-4C13-A8AC-B5EBA226BE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A4972C7-B98A-4C13-A8AC-B5EBA226BE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A4972C7-B98A-4C13-A8AC-B5EBA226BE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A4972C7-B98A-4C13-A8AC-B5EBA226BE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5068599-0118-42DF-9059-D01C00AE025C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5068599-0118-42DF-9059-D01C00AE025C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5068599-0118-42DF-9059-D01C00AE025C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5068599-0118-42DF-9059-D01C00AE025C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,10 @@
 using Cocona;
 using Cocona.Builder;
+using Mf.Evolve.Cli.Filters;
 using Mf.Evolve.CrossCutting.CompositionRoot;
 using Mf.Evolve.CrossCutting.CompositionRoot.Extensions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Mf.Evolve.Cli.Extensions;
 
@@ -46,6 +49,15 @@ public static class StartupExtensions
 	{
 		ArgumentNullException.ThrowIfNull(app);
 
+		ILogger<CommandFilter>? logger = app.Services.GetService<ILogger<CommandFilter>>();
+
+		if (logger is null)
+		{
+			throw new NullLoggerException(typeof(ILogger<CommandFilter>));
+		}
+
+		app.UseFilter(new CommandFilter(logger));
+		
 		return app.ConfigureApp<TStartupContextBuilder>()
 			.AddCoconaCommands<Program>();
 	}

@@ -3,6 +3,7 @@ using System.Reflection;
 using Cocona;
 using Mf.Evolve.Cli.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Mf.Evolve.Cli.Extensions;
 
@@ -37,6 +38,8 @@ namespace Mf.Evolve.Cli.Extensions;
 ]
 public static class CoconaAppExtensions
 {
+	#region AddCommands
+
 	/// <summary>
 	/// Adds Cocona commands to the specified <see cref="CoconaApp" /> based on the target namespace.
 	/// </summary>
@@ -339,4 +342,6 @@ public static class CoconaAppExtensions
 
 		return Delegate.CreateDelegate(delegateType, instance, commandMethod);
 	}
+
+	#endregion
 }

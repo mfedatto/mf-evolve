@@ -5,18 +5,43 @@
 using Cocona;
 using Cocona.Builder;
 using Mf.Evolve.CrossCutting.CompositionRoot;
+using Mf.Evolve.CrossCutting.CompositionRoot.Extensions;
+using Mf.Evolve.Domain.AppSettings;
+using Mf.Evolve.Domain.Common;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace Mf.Evolve.CrossCutting;
 
 /// <summary>
-/// Implements the <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" /> and
-/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" /> interfaces
-/// to provide configuration and installation logic for the CLI entrypoint.
+/// Provides configuration, installation, and binding logic for the CLI entry point, implementing the 
+/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />, 
+/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />, and
+/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderConfigBinder" /> interfaces.
 /// </summary>
-public class CliContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator
+public class CliContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator, IContextBuilderConfigBinder
 {
+	#region IContextBuilderConfigBinder
+
+	/// <summary>
+	/// Binds the application configuration to the specified CLI configuration type.
+	/// </summary>
+	/// <param name="builder">The <see cref="CoconaAppBuilder"/> instance for configuring the application.</param>
+	/// <param name="configuration">The <see cref="IConfiguration"/> instance holding the application's configuration data.</param>
+	public void BindConfig(
+		CoconaAppBuilder builder,
+		IConfiguration configuration)
+	{
+		builder.BindConfig<CliConfig>(configuration);
+	}
+
+	#endregion
+
+	#region IContextBuilderInstaller
+
 	/// <summary>
 	/// Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
 	/// </summary>
@@ -26,7 +51,43 @@ public class CliContextBuilder : IContextBuilderInstaller, IContextBuilderAppCon
 		CoconaAppBuilder builder,
 		IConfiguration? configuration = null)
 	{
+		ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+		CliConfig cliConfig = serviceProvider.GetService<CliConfig>()!;
+
+		#region Logging Setup
+
+		if (cliConfig.Logging.ClearProviders)
+		{
+			builder.Logging.ClearProviders();
+		}
+
+		if (cliConfig.Logging.AddSimpleConsole)
+		{
+			builder.Logging.AddSimpleConsole(options =>
+			{
+				options.IncludeScopes = cliConfig.Logging.IncludeScopes;
+				options.TimestampFormat = cliConfig.Logging.TimestampFormat;
+				options.SingleLine = cliConfig.Logging.SingleLine;
+
+				if (cliConfig.Logging.EnabledLoggerColorBehavior)
+				{
+					options.ColorBehavior = LoggerColorBehavior.Enabled;
+				}
+			});
+		}
+
+		#endregion
+
+		#region CancelationToken
+
+		builder.Services.AddSingleton<CliCancellationToken>();
+
+		#endregion
 	}
+
+	#endregion
+
+	#region IContextBuilderAppConfigurator
 
 	/// <summary>
 	/// Configures the specified <see cref="CoconaApp" /> instance.
@@ -42,4 +103,6 @@ public class CliContextBuilder : IContextBuilderInstaller, IContextBuilderAppCon
 
 		return app;
 	}
+
+	#endregion
 }

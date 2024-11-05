@@ -9,6 +9,7 @@ namespace __namespace__;
 /// <summary>
 /// Represents the __command_lower__ command in the CLI.
 /// </summary>
+// ReSharper disable once UnusedType.Global
 public class __command__Command : ICommand<__command__Command.ParamSet>
 {
 	/// <summary>

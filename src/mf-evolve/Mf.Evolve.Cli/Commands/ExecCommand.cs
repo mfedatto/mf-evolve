@@ -3,19 +3,37 @@
 // Command Name: Exec (lowercase: exec)
 // ParamSet: EvolveParamSet
 
-using Cocona;
+using Mf.Evolve.Domain.Common;
+using Mf.Evolve.Domain.Migration;
+using Mf.Evolve.Domain.MigrationDefinitions;
+using Microsoft.Extensions.Logging;
 
 namespace Mf.Evolve.Cli.Commands;
 
 /// <summary>
 /// Represents the exec command in the CLI.
 /// </summary>
+// ReSharper disable once UnusedType.Global
 public class ExecCommand : ICommand<EvolveParamSet>
 {
+	private readonly ILogger<ExecCommand> _logger;
+	private readonly IMigrationApplication _migrationApplication;
+	private readonly CliCancellationToken _cliCancellationToken;
+
 	/// <summary>
 	/// Gets the name of the command.
 	/// </summary>
 	public string Name => "exec";
+
+	public ExecCommand(
+		ILogger<ExecCommand> logger,
+		IMigrationApplication migrationApplication,
+		CliCancellationToken cliCancellationToken)
+	{
+		_logger = logger;
+		_migrationApplication = migrationApplication;
+		_cliCancellationToken = cliCancellationToken;
+	}
 
 	/// <summary>
 	/// Executes the exec command with the specified <see cref="EvolveParamSet"/>
@@ -25,6 +43,10 @@ public class ExecCommand : ICommand<EvolveParamSet>
 	public void Run(
 		EvolveParamSet paramSet)
 	{
-		Console.WriteLine(paramSet.FilePath);
+		_migrationApplication.ExecAsync(
+				paramSet.FilePath,
+				_cliCancellationToken.Token)
+			.GetAwaiter()
+			.GetResult();
 	}
 }

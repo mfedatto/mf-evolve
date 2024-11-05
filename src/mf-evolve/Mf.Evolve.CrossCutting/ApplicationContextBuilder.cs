@@ -6,6 +6,7 @@ using Cocona;
 using Cocona.Builder;
 using Mf.Evolve.Application;
 using Mf.Evolve.CrossCutting.CompositionRoot;
+using Mf.Evolve.Domain.Migration;
 using Mf.Evolve.Domain.MigrationDefinitions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,7 @@ public class ApplicationContextBuilder : IContextBuilderInstaller, IContextBuild
 		CoconaAppBuilder builder,
 		IConfiguration? configuration = null)
 	{
-		builder.Services.AddSingleton<IMigrationDefinitionsApplication, MigrationDefinitionsApplication>();
+		builder.Services.AddSingleton<IMigrationApplication, MigrationApplication>();
 	}
 
 	/// <summary>

@@ -15,6 +15,9 @@ public class RootContextBuilder
 	{
 		builder
 			.BuildContext<DomainContextBuilder>(configuration)
+			.BuildContext<ApplicationContextBuilder>(configuration)
+			.BuildContext<ServiceContextBuilder>(configuration)
+			.BuildContext<IOContextBuilder>(configuration)
 			.BuildContext<TStartupContextBuilder>(configuration);
 
 		builder.Host.UseDefaultServiceProvider(

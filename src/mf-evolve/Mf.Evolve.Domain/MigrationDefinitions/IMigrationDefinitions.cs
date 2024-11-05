@@ -1,10 +1,31 @@
 using System.Diagnostics.CodeAnalysis;
+using Mf.Evolve.Domain.Common;
+using Mf.Evolve.Domain.ConnectionStringTemplate;
+using Mf.Evolve.Domain.WorkingDirectoryTemplate;
 
 namespace Mf.Evolve.Domain.MigrationDefinitions;
 
+/// <summary>
+/// Represents the definitions of the migrations to be performed.
+/// </summary>
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
-public interface IMigrationDefinitions
+public interface IMigrationDefinitions : IPlaceholder
 {
+    /// <summary>
+    /// The DBMS as defined by Evolve.
+    /// </summary>
+    EvolveDbms Dbms { get; }
+
+    /// <summary>
+    /// An <see cref="IConnectionStringTemplate"/> for the database connection string.
+    /// </summary>
+    IConnectionStringTemplate ConnectionStringTemplate { get; }
+
+    /// <summary>
+    /// An <see cref="IWorkingDirectoryTemplate"/> for the Evolve execution working directory.
+    /// </summary>
+    IWorkingDirectoryTemplate WorkingDirectoryTemplate { get; }
+
     /// <summary>
     /// Paths to scan recursively for migrations. Mandatory if <see cref="EmbeddedResourceAssemblies"/> is empty.
     /// </summary>
@@ -113,21 +134,6 @@ public interface IMigrationDefinitions
     /// The metadata table name.
     /// </summary>
     string? MetadataTableName { get; }
-
-    /// <summary>
-    /// The prefix of the placeholders.
-    /// </summary>
-    string PlaceholderPrefix { get; }
-
-    /// <summary>
-    /// The suffix of the placeholders.
-    /// </summary>
-    string PlaceholderSuffix { get; }
-
-    /// <summary>
-    /// Placeholders are strings to replace in SQL migrations at runtime.
-    /// </summary>
-    Dictionary<string, string>[] Placeholders { get; }
 
     /// <summary>
     /// When <c>true</c>, Evolve will use a session level lock to coordinate migrations on multiple nodes.
