@@ -68,30 +68,23 @@ public class CommandFilter : ICommandFilter
 	/// </summary>
 	private void WriteRuntimeInfo()
 	{
-		string osDescription = RuntimeInformation.OSDescription;
-		string osArchitecture = RuntimeInformation.OSArchitecture.ToString();
-		string commandLine = Environment.CommandLine;
-		string currentDirectory = Directory.GetCurrentDirectory();
-		string userName = Environment.UserName;
-		string isAdministrator = GetIsAdministratorIndication();
-
-		_logger.LogInformation($"""
-		                        MF Evolve - Runtime Information:
-		                        ~> OS: {osDescription}
-		                        ~> Platform: {osArchitecture}
-		                        ~> Command line:
-		                           ~> {commandLine}
-		                        ~> Directory:
-		                           ~> {currentDirectory}
-		                        ~> User: {userName}
-		                        ~> Super User: {isAdministrator}
-		                        """,
-			osDescription,
-			osArchitecture,
-			commandLine,
-			currentDirectory,
-			userName,
-			isAdministrator);
+		_logger.LogInformation("""
+		                       MF Evolve - Runtime Information:
+		                       ~> OS: {osDescription}
+		                       ~> Platform: {osArchitecture}
+		                       ~> Command line:
+		                          ~> {commandLine}
+		                       ~> Directory:
+		                          ~> {currentDirectory}
+		                       ~> User: {userName}
+		                       ~> Super User: {isAdministrator}
+		                       """,
+			RuntimeInformation.OSDescription,
+			RuntimeInformation.OSArchitecture.ToString(),
+			Environment.CommandLine,
+			Directory.GetCurrentDirectory(),
+			Environment.UserName,
+			GetIsAdministratorIndication());
 	}
 
 	/// <summary>
