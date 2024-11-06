@@ -5,9 +5,8 @@ namespace Mf.Evolve.Domain.AppSettings;
 [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
 public record CliConfig : IConfig
 {
-	public string Section => "Cli";
-
 	public LoggingConfig Logging { get; set; } = new();
+	public string Section => "Cli";
 
 	public record LoggingConfig
 	{

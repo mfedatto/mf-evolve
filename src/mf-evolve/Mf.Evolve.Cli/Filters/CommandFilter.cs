@@ -2,14 +2,13 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using Cocona.Filters;
 using Microsoft.Extensions.Logging;
-using System.Runtime.InteropServices;
 using Mono.Unix;
 
 namespace Mf.Evolve.Cli.Filters;
 
 public class CommandFilter : ICommandFilter
 {
-	private static bool _isAdminEvaluated = false;
+	private static bool _isAdminEvaluated;
 	private static bool? _isAdmin;
 	private readonly ILogger<CommandFilter> _logger;
 

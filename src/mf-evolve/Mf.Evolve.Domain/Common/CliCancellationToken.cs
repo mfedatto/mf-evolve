@@ -4,25 +4,20 @@ using Microsoft.Extensions.Logging;
 namespace Mf.Evolve.Domain.Common;
 
 /// <summary>
-/// Provides a singleton cancellation token for CLI applications, 
-/// with automatic cancellation triggered on application exit.
+///     Provides a singleton cancellation token for CLI applications,
+///     with automatic cancellation triggered on application exit.
 /// </summary>
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class CliCancellationToken
 {
+	private readonly CancellationTokenSource _cts = new();
+
 	// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
 	private readonly ILogger<CliCancellationToken> _logger;
-	private readonly CancellationTokenSource _cts = new CancellationTokenSource();
 
 	/// <summary>
-	/// Gets the application's global cancellation token.
-	/// This token will be canceled when the application exits.
-	/// </summary>
-	public CancellationToken Token => _cts.Token;
-
-	/// <summary>
-	/// Initializes a new instance of the <see cref="CliCancellationToken"/> class.
-	/// Registers a cancellation request to be triggered on application exit.
+	///     Initializes a new instance of the <see cref="CliCancellationToken" /> class.
+	///     Registers a cancellation request to be triggered on application exit.
 	/// </summary>
 	public CliCancellationToken(
 		ILogger<CliCancellationToken> logger)
@@ -30,6 +25,8 @@ public class CliCancellationToken
 		_logger = logger;
 
 		AppDomain.CurrentDomain.ProcessExit +=
+			// ReSharper disable once UnusedParameter.Local
+			// ReSharper disable once UnusedParameter.Local
 			(sender, e) =>
 			{
 				_cts.Cancel();
@@ -46,15 +43,25 @@ public class CliCancellationToken
 	}
 
 	/// <summary>
-	/// Requests cancellation of the global token.
+	///     Gets the application's global cancellation token.
+	///     This token will be canceled when the application exits.
 	/// </summary>
-	public void Cancel()
-		=> _cts.Cancel();
+	public CancellationToken Token => _cts.Token;
 
 	/// <summary>
-	/// Releases resources held by the cancellation token source.
-	/// Should be called when the application completes.
+	///     Requests cancellation of the global token.
+	/// </summary>
+	public void Cancel()
+	{
+		_cts.Cancel();
+	}
+
+	/// <summary>
+	///     Releases resources held by the cancellation token source.
+	///     Should be called when the application completes.
 	/// </summary>
 	public void Dispose()
-		=> _cts.Dispose();
+	{
+		_cts.Dispose();
+	}
 }

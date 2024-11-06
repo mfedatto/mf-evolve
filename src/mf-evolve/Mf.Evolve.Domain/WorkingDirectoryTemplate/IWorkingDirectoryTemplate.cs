@@ -4,5 +4,6 @@ namespace Mf.Evolve.Domain.WorkingDirectoryTemplate;
 
 public interface IWorkingDirectoryTemplate : IPlaceholder
 {
-	string WorkingDirectory { get; }
+	// ReSharper disable once UnusedMember.Global
+	string? WorkingDirectory { get; }
 }

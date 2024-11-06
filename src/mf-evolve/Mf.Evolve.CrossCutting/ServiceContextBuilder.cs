@@ -5,62 +5,29 @@
 using Cocona;
 using Cocona.Builder;
 using Mf.Evolve.CrossCutting.CompositionRoot;
-using Mf.Evolve.CrossCutting.CompositionRoot.Extensions;
 using Mf.Evolve.Domain.MigrationDefinitions;
 using Mf.Evolve.Service;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Mf.Evolve.CrossCutting;
 
 /// <summary>
-/// Provides configuration, installation, and binding logic for the Service entry point, implementing the 
-/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />, 
-/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />, and
-/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderConfigBinder" /> interfaces.
+///     Provides configuration, installation, and binding logic for the Service entry point, implementing the
+///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />,
+///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />, and
+///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderConfigBinder" /> interfaces.
 /// </summary>
-public class ServiceContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator, IContextBuilderConfigBinder
+public class ServiceContextBuilder
+	: IContextBuilderInstaller, IContextBuilderAppConfigurator, IContextBuilderConfigBinder
 {
-	#region IContextBuilderConfigBinder
-
-	/// <summary>
-	/// Binds the application configuration to the specified Service configuration type.
-	/// </summary>
-	/// <param name="builder">The <see cref="CoconaAppBuilder"/> instance for configuring the application.</param>
-	/// <param name="configuration">The <see cref="IConfiguration"/> instance holding the application's configuration data.</param>
-	public void BindConfig(
-		CoconaAppBuilder builder,
-		IConfiguration configuration)
-	{
-	}
-
-	#endregion
-
-	#region IContextBuilderInstaller
-
-	/// <summary>
-	/// Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
-	/// </summary>
-	/// <param name="builder">The <see cref="CoconaAppBuilder" /> instance to configure.</param>
-	/// <param name="configuration">Optional configuration settings. Defaults to <c>null</c>.</param>
-	public void Install(
-		CoconaAppBuilder builder,
-		IConfiguration? configuration = null)
-	{
-		ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
-
-		builder.Services.AddSingleton<IMigrationDefinitionsService, MigrationDefinitionsService>();
-	}
-
-	#endregion
-
 	#region IContextBuilderAppConfigurator
 
 	/// <summary>
-	/// Configures the specified <see cref="CoconaApp" /> instance.
+	///     Configures the specified <see cref="CoconaApp" /> instance.
 	/// </summary>
 	/// <param name="app">The <see cref="CoconaApp" /> instance to configure.</param>
 	/// <returns>The configured <see cref="CoconaApp" /> instance.</returns>
@@ -72,6 +39,41 @@ public class ServiceContextBuilder : IContextBuilderInstaller, IContextBuilderAp
 		}
 
 		return app;
+	}
+
+	#endregion
+
+	#region IContextBuilderConfigBinder
+
+	/// <summary>
+	///     Binds the application configuration to the specified Service configuration type.
+	/// </summary>
+	/// <param name="builder">The <see cref="CoconaAppBuilder" /> instance for configuring the application.</param>
+	/// <param name="configuration">The <see cref="IConfiguration" /> instance holding the application's configuration data.</param>
+	public void BindConfig(
+		CoconaAppBuilder builder,
+		IConfiguration configuration)
+	{
+	}
+
+	#endregion
+
+	#region IContextBuilderInstaller
+
+	/// <summary>
+	///     Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
+	/// </summary>
+	/// <param name="builder">The <see cref="CoconaAppBuilder" /> instance to configure.</param>
+	/// <param name="configuration">Optional configuration settings. Defaults to <c>null</c>.</param>
+	public void Install(
+		CoconaAppBuilder builder,
+		IConfiguration? configuration = null)
+	{
+		builder.Services.AddSingleton(
+			new DeserializerBuilder()
+				.WithNamingConvention(CamelCaseNamingConvention.Instance)
+				.Build());
+		builder.Services.AddSingleton<IMigrationDefinitionsService, MigrationDefinitionsService>();
 	}
 
 	#endregion

@@ -3,45 +3,42 @@ using System.Reflection;
 using Cocona;
 using Mf.Evolve.Cli.Commands;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace Mf.Evolve.Cli.Extensions;
 
 /// <summary>
-/// Provides extension methods for adding commands to a <see cref="CoconaApp" />.
+///     Provides extension methods for adding commands to a <see cref="CoconaApp" />.
 /// </summary>
 /// <remarks>
-/// This class contains methods for dynamically adding command classes based on the target namespace
-/// and program class. It handles command registration and retrieval of command class information.
+///     This class contains methods for dynamically adding command classes based on the target namespace
+///     and program class. It handles command registration and retrieval of command class information.
 /// </remarks>
-[
-	UnconditionalSuppressMessage(
-		"Trimming",
-		"IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code",
-		Justification = "Dynamic access is validated to ensure compatibility."),
-	UnconditionalSuppressMessage(
-		"AOT",
-		"IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.",
-		Justification = "Dynamic code generation is validated and controlled for AOT compatibility."),
-	UnconditionalSuppressMessage(
-		"Trimming",
-		"IL2060:Member annotated with 'RequiresUnreferencedCodeAttribute' may be removed by trimming.",
-		Justification = "Members are validated to ensure they are retained during trimming."),
-	UnconditionalSuppressMessage(
-		"Trimming",
-		"IL2091:Calling members annotated with 'RequiresUnreferencedCodeAttribute' may break functionality when trimming.",
-		Justification = "Dynamic behavior is validated and conforms to trimming expectations."),
-	UnconditionalSuppressMessage(
-		"Trimming",
-		"IL2090:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when trimming.",
-		Justification = "Dynamic behavior is carefully validated to ensure compatibility with trimming.")
-]
+[UnconditionalSuppressMessage(
+	"Trimming",
+	"IL2026:Members annotated with 'RequiresUnreferencedCodeAttribute' require dynamic access otherwise can break functionality when trimming application code",
+	Justification = "Dynamic access is validated to ensure compatibility.")]
+[UnconditionalSuppressMessage(
+	"AOT",
+	"IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.",
+	Justification = "Dynamic code generation is validated and controlled for AOT compatibility.")]
+[UnconditionalSuppressMessage(
+	"Trimming",
+	"IL2060:Member annotated with 'RequiresUnreferencedCodeAttribute' may be removed by trimming.",
+	Justification = "Members are validated to ensure they are retained during trimming.")]
+[UnconditionalSuppressMessage(
+	"Trimming",
+	"IL2091:Calling members annotated with 'RequiresUnreferencedCodeAttribute' may break functionality when trimming.",
+	Justification = "Dynamic behavior is validated and conforms to trimming expectations.")]
+[UnconditionalSuppressMessage(
+	"Trimming",
+	"IL2090:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when trimming.",
+	Justification = "Dynamic behavior is carefully validated to ensure compatibility with trimming.")]
 public static class CoconaAppExtensions
 {
 	#region AddCommands
 
 	/// <summary>
-	/// Adds Cocona commands to the specified <see cref="CoconaApp" /> based on the target namespace.
+	///     Adds Cocona commands to the specified <see cref="CoconaApp" /> based on the target namespace.
 	/// </summary>
 	/// <typeparam name="TProgram">The program class containing the commands.</typeparam>
 	/// <param name="app">The <see cref="CoconaApp" /> to which commands will be added.</param>
@@ -58,7 +55,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Adds commands to the <see cref="CoconaApp" /> from the specified target namespace.
+	///     Adds commands to the <see cref="CoconaApp" /> from the specified target namespace.
 	/// </summary>
 	/// <param name="app">The <see cref="CoconaApp" /> to which commands will be added.</param>
 	/// <param name="targetNamespace">The namespace containing the command classes.</param>
@@ -82,7 +79,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves the <see cref="MethodInfo" /> for the AddCommand method.
+	///     Retrieves the <see cref="MethodInfo" /> for the AddCommand method.
 	/// </summary>
 	/// <returns>The <see cref="MethodInfo" /> for the AddCommand method.</returns>
 	private static MethodInfo GetAddCommandMethod()
@@ -107,7 +104,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves the base namespace for commands from the specified program class.
+	///     Retrieves the base namespace for commands from the specified program class.
 	/// </summary>
 	/// <typeparam name="TProgram">The program class.</typeparam>
 	/// <param name="preserveDotCommandEnding">Indicates whether to preserve the dot command ending.</param>
@@ -135,7 +132,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves classes within the target namespace.
+	///     Retrieves classes within the target namespace.
 	/// </summary>
 	/// <param name="targetNamespace">The target namespace to search within.</param>
 	/// <returns>A collection of classes in the specified namespace.</returns>
@@ -154,7 +151,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves command classes that implement the <see cref="ICommand{T}" /> interface.
+	///     Retrieves command classes that implement the <see cref="ICommand{T}" /> interface.
 	/// </summary>
 	/// <param name="targetNamespace">The target namespace to search within.</param>
 	/// <returns>A collection of command classes implementing <see cref="ICommand{T}" />.</returns>
@@ -178,7 +175,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Adds a command of type <typeparamref name="TCommand" /> to the <see cref="CoconaApp" />.
+	///     Adds a command of type <typeparamref name="TCommand" /> to the <see cref="CoconaApp" />.
 	/// </summary>
 	/// <typeparam name="TCommand">The type of command to add.</typeparam>
 	/// <param name="app">The <see cref="CoconaApp" /> to which the command will be added.</param>
@@ -195,7 +192,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Adds a command instance to the <see cref="CoconaApp" />.
+	///     Adds a command instance to the <see cref="CoconaApp" />.
 	/// </summary>
 	/// <typeparam name="TCommand">The type of command instance.</typeparam>
 	/// <param name="app">The <see cref="CoconaApp" /> to which the command instance will be added.</param>
@@ -227,14 +224,14 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Obtém o nome do comando a partir da instância do comando.
+	///     Obtém o nome do comando a partir da instância do comando.
 	/// </summary>
 	/// <typeparam name="TCommand">O tipo do comando, que deve ser uma classe.</typeparam>
 	/// <param name="instance">A instância do comando a ser analisada.</param>
 	/// <returns>O nome do comando, ou null se não estiver definido.</returns>
 	/// <exception cref="CommandNamePropertyNotFoundException">
-	/// Lançado quando a propriedade de nome do comando não é
-	/// encontrada.
+	///     Lançado quando a propriedade de nome do comando não é
+	///     encontrada.
 	/// </exception>
 	private static string? GetCommandName<TCommand>(
 		TCommand instance)
@@ -255,13 +252,13 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves the generic command interface implemented by the specified command class.
+	///     Retrieves the generic command interface implemented by the specified command class.
 	/// </summary>
 	/// <typeparam name="TCommand">The type of the command class, which must be a class.</typeparam>
 	/// <returns>The type of the generic command interface implemented by the class.</returns>
 	/// <exception cref="CommandDoesNotImplementICommandTParamSetException">
-	/// Thrown when the command class does not implement
-	/// the ICommand&lt;TParamSet&gt; interface.
+	///     Thrown when the command class does not implement
+	///     the ICommand&lt;TParamSet&gt; interface.
 	/// </exception>
 	private static Type GetCommandInterfaceType<TCommand>()
 		where TCommand : class
@@ -281,11 +278,11 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves the parameter set type from the specified command interface type.
+	///     Retrieves the parameter set type from the specified command interface type.
 	/// </summary>
 	/// <param name="interfaceType">
-	/// The type of the command interface, which must be a generic interface implementing ICommand
-	/// &lt;TParamSet&gt;.
+	///     The type of the command interface, which must be a generic interface implementing ICommand
+	///     &lt;TParamSet&gt;.
 	/// </param>
 	/// <returns>The type of the parameter set associated with the command interface.</returns>
 	/// <exception cref="ArgumentNullException">Thrown when the <paramref name="interfaceType" /> is null.</exception>
@@ -298,12 +295,12 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Retrieves the method information for the command's run method defined by the ICommand&lt;TParamSet&gt; interface.
+	///     Retrieves the method information for the command's run method defined by the ICommand&lt;TParamSet&gt; interface.
 	/// </summary>
 	/// <typeparam name="TCommand">The type of the command, which must implement ICommand&lt;TParamSet&gt;.</typeparam>
 	/// <returns>The <see cref="MethodInfo" /> representing the run method of the command.</returns>
 	/// <exception cref="CommandDoesNotImplementExpectedMethodException">
-	/// Thrown when the specified command type does not implement the expected run method.
+	///     Thrown when the specified command type does not implement the expected run method.
 	/// </exception>
 	private static MethodInfo GetCommandMethodInfo<TCommand>()
 		where TCommand : class
@@ -323,7 +320,7 @@ public static class CoconaAppExtensions
 	}
 
 	/// <summary>
-	/// Creates a delegate for the command's run method using the specified command instance.
+	///     Creates a delegate for the command's run method using the specified command instance.
 	/// </summary>
 	/// <typeparam name="TCommand">The type of the command instance, which must implement ICommand&lt;TParamSet&gt;.</typeparam>
 	/// <param name="instance">The command instance from which to create the delegate.</param>

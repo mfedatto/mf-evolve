@@ -5,8 +5,8 @@ using Microsoft.Extensions.Logging;
 namespace Mf.Evolve.Application;
 
 /// <summary>
-/// Provides an application layer implementation for managing and executing migrations.
-/// This class encapsulates migration logic, enabling synchronous and asynchronous execution.
+///     Provides an application layer implementation for managing and executing migrations.
+///     This class encapsulates migration logic, enabling synchronous and asynchronous execution.
 /// </summary>
 public class MigrationApplication : IMigrationApplication
 {
@@ -26,7 +26,7 @@ public class MigrationApplication : IMigrationApplication
 	}
 
 	/// <summary>
-	/// Executes a migration process from a specified file path.
+	///     Executes a migration process from a specified file path.
 	/// </summary>
 	/// <param name="filePath">The path to the migration file to execute.</param>
 	/// <param name="cancellationToken">A token to observe for cancellation requests.</param>
@@ -42,7 +42,7 @@ public class MigrationApplication : IMigrationApplication
 	}
 
 	/// <summary>
-	/// Asynchronously executes a migration process from a specified file path.
+	///     Asynchronously executes a migration process from a specified file path.
 	/// </summary>
 	/// <param name="filePath">The path to the migration file to execute.</param>
 	/// <param name="cancellationToken">A token to observe for cancellation requests.</param>
@@ -57,11 +57,11 @@ public class MigrationApplication : IMigrationApplication
 			await _migrationDefinitionsService.GetDefinitionsAsync(
 				filePath,
 				cancellationToken);
+		return;
 		IMigrationDefinitions[] migrationDefinitionsFlattenedList =
 			_migrationDefinitionsFactory.CreateFlattenedList(
 				migrationDefinitionsList);
 
 		return;
-		throw new NotImplementedException();
 	}
 }

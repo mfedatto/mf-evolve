@@ -5,25 +5,21 @@
 
 using Mf.Evolve.Domain.Common;
 using Mf.Evolve.Domain.Migration;
-using Mf.Evolve.Domain.MigrationDefinitions;
 using Microsoft.Extensions.Logging;
 
 namespace Mf.Evolve.Cli.Commands;
 
 /// <summary>
-/// Represents the exec command in the CLI.
+///     Represents the exec command in the CLI.
 /// </summary>
 // ReSharper disable once UnusedType.Global
 public class ExecCommand : ICommand<EvolveParamSet>
 {
-	private readonly ILogger<ExecCommand> _logger;
-	private readonly IMigrationApplication _migrationApplication;
 	private readonly CliCancellationToken _cliCancellationToken;
 
-	/// <summary>
-	/// Gets the name of the command.
-	/// </summary>
-	public string Name => "exec";
+	// ReSharper disable once NotAccessedField.Local
+	private readonly ILogger<ExecCommand> _logger;
+	private readonly IMigrationApplication _migrationApplication;
 
 	public ExecCommand(
 		ILogger<ExecCommand> logger,
@@ -36,8 +32,13 @@ public class ExecCommand : ICommand<EvolveParamSet>
 	}
 
 	/// <summary>
-	/// Executes the exec command with the specified <see cref="EvolveParamSet"/>
-	/// parameters.
+	///     Gets the name of the command.
+	/// </summary>
+	public string Name => "exec";
+
+	/// <summary>
+	///     Executes the exec command with the specified <see cref="EvolveParamSet" />
+	///     parameters.
 	/// </summary>
 	/// <param name="paramSet">The parameter set for the exec command.</param>
 	public void Run(

@@ -5,19 +5,25 @@ namespace Mf.Evolve.Service;
 
 public class MigrationDefinitionsService : IMigrationDefinitionsService
 {
+	private readonly MigrationDefinitionsFactory _factory;
+
+	// ReSharper disable once NotAccessedField.Local
 	private readonly ILogger<MigrationDefinitionsService> _logger;
+
 	// ReSharper disable once InconsistentNaming
 	private readonly IMigrationDefinitionsIO _migrationDefinitionsIO;
 
 	public MigrationDefinitionsService(
 		ILogger<MigrationDefinitionsService> logger,
 		// ReSharper disable once InconsistentNaming
-		IMigrationDefinitionsIO migrationDefinitionsIO)
+		IMigrationDefinitionsIO migrationDefinitionsIO,
+		MigrationDefinitionsFactory factory)
 	{
 		_logger = logger;
 		_migrationDefinitionsIO = migrationDefinitionsIO;
+		_factory = factory;
 	}
-	
+
 	public IMigrationDefinitions[] GetDefinitions(
 		string filePath,
 		CancellationToken cancellationToken)
@@ -40,8 +46,9 @@ public class MigrationDefinitionsService : IMigrationDefinitionsService
 		string rawContent = await _migrationDefinitionsIO.GetRawContentAsync(
 			filePath,
 			cancellationToken);
+		IMigrationDefinitions[]? result = _factory.Create(rawContent);
 
-		return null;
-		throw new NotImplementedException();
+		return result
+		       ?? [];
 	}
 }

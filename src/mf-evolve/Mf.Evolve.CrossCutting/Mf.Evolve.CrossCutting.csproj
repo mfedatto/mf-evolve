@@ -8,17 +8,18 @@
 
     <ItemGroup>
         <PackageReference Include="Cocona" Version="2.2.0"/>
+        <PackageReference Include="YamlDotNet" Version="16.1.3"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Mf.Evolve.Application\Mf.Evolve.Application.csproj" />
-      <ProjectReference Include="..\Mf.Evolve.Domain\Mf.Evolve.Domain.csproj" />
-      <ProjectReference Include="..\Mf.Evolve.IO\Mf.Evolve.IO.csproj" />
-      <ProjectReference Include="..\Mf.Evolve.Service\Mf.Evolve.Service.csproj" />
+        <ProjectReference Include="..\Mf.Evolve.Application\Mf.Evolve.Application.csproj"/>
+        <ProjectReference Include="..\Mf.Evolve.Domain\Mf.Evolve.Domain.csproj"/>
+        <ProjectReference Include="..\Mf.Evolve.IO\Mf.Evolve.IO.csproj"/>
+        <ProjectReference Include="..\Mf.Evolve.Service\Mf.Evolve.Service.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="DevTools\Templates\**\*.*" Visible="true" />
+        <None Include="DevTools\Templates\**\*.*" Visible="true"/>
     </ItemGroup>
 
 </Project>

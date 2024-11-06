@@ -5,7 +5,9 @@
 using Cocona;
 using Cocona.Builder;
 using Mf.Evolve.CrossCutting.CompositionRoot;
+using Mf.Evolve.Domain.ConnectionStringTemplate;
 using Mf.Evolve.Domain.MigrationDefinitions;
+using Mf.Evolve.Domain.WorkingDirectoryTemplate;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,26 +15,14 @@ using Microsoft.Extensions.Hosting;
 namespace Mf.Evolve.CrossCutting;
 
 /// <summary>
-/// Implements the <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" /> and
-/// <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" /> interfaces
-/// to provide configuration and installation logic for the Domain context.
+///     Implements the <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" /> and
+///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" /> interfaces
+///     to provide configuration and installation logic for the Domain context.
 /// </summary>
 public class DomainContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator
 {
 	/// <summary>
-	/// Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
-	/// </summary>
-	/// <param name="builder">The <see cref="CoconaAppBuilder" /> instance to configure.</param>
-	/// <param name="configuration">Optional configuration settings. Defaults to <c>null</c>.</param>
-	public void Install(
-		CoconaAppBuilder builder,
-		IConfiguration? configuration = null)
-	{
-		builder.Services.AddSingleton<MigrationDefinitionsFactory>();
-	}
-
-	/// <summary>
-	/// Configures the specified <see cref="CoconaApp" /> instance.
+	///     Configures the specified <see cref="CoconaApp" /> instance.
 	/// </summary>
 	/// <param name="app">The <see cref="CoconaApp" /> instance to configure.</param>
 	/// <returns>The configured <see cref="CoconaApp" /> instance.</returns>
@@ -44,5 +34,19 @@ public class DomainContextBuilder : IContextBuilderInstaller, IContextBuilderApp
 		}
 
 		return app;
+	}
+
+	/// <summary>
+	///     Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
+	/// </summary>
+	/// <param name="builder">The <see cref="CoconaAppBuilder" /> instance to configure.</param>
+	/// <param name="configuration">Optional configuration settings. Defaults to <c>null</c>.</param>
+	public void Install(
+		CoconaAppBuilder builder,
+		IConfiguration? configuration = null)
+	{
+		builder.Services.AddSingleton<ConnectionStringTemplateFactory>();
+		builder.Services.AddSingleton<WorkingDirectoryTemplateFactory>();
+		builder.Services.AddSingleton<MigrationDefinitionsFactory>();
 	}
 }
