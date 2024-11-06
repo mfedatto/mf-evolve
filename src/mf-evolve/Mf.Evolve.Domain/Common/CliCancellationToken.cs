@@ -10,6 +10,8 @@ namespace Mf.Evolve.Domain.Common;
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public class CliCancellationToken
 {
+	public static bool IsAppEndingRegularlly = false;
+	
 	private readonly CancellationTokenSource _cts = new();
 
 	// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -29,6 +31,11 @@ public class CliCancellationToken
 			// ReSharper disable once UnusedParameter.Local
 			(sender, e) =>
 			{
+				if (IsAppEndingRegularlly)
+				{
+					return;
+				}
+
 				_cts.Cancel();
 
 				try

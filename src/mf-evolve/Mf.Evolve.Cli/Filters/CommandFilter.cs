@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using Cocona.Filters;
+using Mf.Evolve.Domain.Common;
 using Microsoft.Extensions.Logging;
 using Mono.Unix;
 
@@ -30,6 +31,8 @@ public class CommandFilter : ICommandFilter
 			var result = await next(ctx);
 
 			WriteTrailer();
+
+			CliCancellationToken.IsAppEndingRegularlly = true;
 
 			return result;
 		}
