@@ -12,16 +12,13 @@ public class MigrationApplication : IMigrationApplication
 {
 	// ReSharper disable once NotAccessedField.Local
 	private readonly ILogger<MigrationApplication> _logger;
-	private readonly MigrationDefinitionsFactory _migrationDefinitionsFactory;
 	private readonly IMigrationDefinitionsService _migrationDefinitionsService;
 
 	public MigrationApplication(
 		ILogger<MigrationApplication> logger,
-		MigrationDefinitionsFactory migrationDefinitionsFactory,
 		IMigrationDefinitionsService migrationDefinitionsService)
 	{
 		_logger = logger;
-		_migrationDefinitionsFactory = migrationDefinitionsFactory;
 		_migrationDefinitionsService = migrationDefinitionsService;
 	}
 
@@ -57,11 +54,6 @@ public class MigrationApplication : IMigrationApplication
 			await _migrationDefinitionsService.GetDefinitionsAsync(
 				filePath,
 				cancellationToken);
-		return;
-		IMigrationDefinitions[] migrationDefinitionsFlattenedList =
-			_migrationDefinitionsFactory.CreateFlattenedList(
-				migrationDefinitionsList);
-
 		return;
 	}
 }

@@ -1,5 +1,8 @@
 namespace Mf.Evolve.Domain.Common;
 
+/// <summary>
+///     Provides helper methods to write colored text to the console.
+/// </summary>
 public static class ConsoleWriterHelper
 {
 	/// <summary>
