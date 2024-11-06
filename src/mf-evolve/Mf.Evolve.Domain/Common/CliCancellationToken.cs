@@ -11,7 +11,7 @@ namespace Mf.Evolve.Domain.Common;
 public class CliCancellationToken
 {
 	public static bool IsAppEndingRegularlly = false;
-	
+
 	private readonly CancellationTokenSource _cts = new();
 
 	// ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
