@@ -15,20 +15,30 @@ using Microsoft.Extensions.Logging.Console;
 namespace __namespace__;
 
 /// <summary>
-/// Provides configuration, installation, and binding logic for the __context__ entry point, implementing the 
-/// <see cref="__namespace__.CompositionRoot.IContextBuilderInstaller" />, 
-/// <see cref="__namespace__.CompositionRoot.IContextBuilderAppConfigurator" />, and
-/// <see cref="__namespace__.CompositionRoot.IContextBuilderConfigBinder" /> interfaces.
+///     Provides configuration, installation, and binding logic for the
+///     __context__ entry point, implementing the 
+///     <see cref="__namespace__.CompositionRoot.IContextBuilderInstaller" />, 
+///     <see cref="__namespace__.CompositionRoot.IContextBuilderAppConfigurator" />,
+///     and
+///     <see cref="__namespace__.CompositionRoot.IContextBuilderConfigBinder" />
+///     interfaces.
 /// </summary>
 public class __context__ContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator, IContextBuilderConfigBinder
 {
 	#region IContextBuilderConfigBinder
 
 	/// <summary>
-	/// Binds the application configuration to the specified __context__ configuration type.
+	///     Binds the application configuration to the specified
+	///     __context__ configuration type.
 	/// </summary>
-	/// <param name="builder">The <see cref="CoconaAppBuilder"/> instance for configuring the application.</param>
-	/// <param name="configuration">The <see cref="IConfiguration"/> instance holding the application's configuration data.</param>
+	/// <param name="builder">
+	///     The <see cref="CoconaAppBuilder"/> instance for configuring the
+	///     application.
+	/// </param>
+	/// <param name="configuration">
+	///     The <see cref="IConfiguration"/> instance holding the application's
+	///     configuration data.
+	/// </param>
 	public void BindConfig(
 		CoconaAppBuilder builder,
 		IConfiguration configuration)
@@ -41,16 +51,23 @@ public class __context__ContextBuilder : IContextBuilderInstaller, IContextBuild
 	#region IContextBuilderInstaller
 
 	/// <summary>
-	/// Installs the necessary services and configurations into the specified <see cref="CoconaAppBuilder" />.
+	///     Installs the necessary services and configurations into the
+	///     specified <see cref="CoconaAppBuilder" />.
 	/// </summary>
-	/// <param name="builder">The <see cref="CoconaAppBuilder" /> instance to configure.</param>
-	/// <param name="configuration">Optional configuration settings. Defaults to <c>null</c>.</param>
+	/// <param name="builder">
+	///     The <see cref="CoconaAppBuilder" /> instance to configure.
+	/// </param>
+	/// <param name="configuration">
+	///     Optional configuration settings. Defaults to <c>null</c>.
+	/// </param>
 	public void Install(
 		CoconaAppBuilder builder,
 		IConfiguration? configuration = null)
 	{
-		ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
-		__context__Config __context__Config = serviceProvider.GetService<__context__Config>()!;
+		ServiceProvider serviceProvider =
+			builder.Services.BuildServiceProvider();
+		__context__Config __context__Config =
+			serviceProvider.GetService<__context__Config>()!;
 	}
 
 	#endregion
@@ -58,10 +75,11 @@ public class __context__ContextBuilder : IContextBuilderInstaller, IContextBuild
 	#region IContextBuilderAppConfigurator
 
 	/// <summary>
-	/// Configures the specified <see cref="CoconaApp" /> instance.
+	///     Configures the specified <see cref="CoconaApp" /> instance.
 	/// </summary>
-	/// <param name="app">The <see cref="CoconaApp" /> instance to configure.</param>
-	/// <returns>The configured <see cref="CoconaApp" /> instance.</returns>
+	/// <param name="app">
+	///     The <see cref="CoconaApp" /> instance to configure.
+	/// </param>
 	public CoconaApp Configure(
 		CoconaApp app)
 	{

@@ -62,7 +62,7 @@ public class CommandFilter : ICommandFilter
 			WriteFarewell();
 			WriteColorRegistrationMarks();
 
-			CliCancellationToken.IsAppEndingRegularlly = true;
+			CliCancellationToken.IsAppEndingRegularly = true;
 
 			return result;
 		}

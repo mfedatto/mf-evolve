@@ -6,7 +6,8 @@ namespace Mf.Evolve.Domain.Common;
 public static class ConsoleWriterHelper
 {
 	/// <summary>
-	///     Writes a message to the console with a specified foreground color, followed by a newline.
+	///     Writes a message to the console with a specified foreground color,
+	///     followed by a newline.
 	/// </summary>
 	/// <param name="message">The message to be written to the console.</param>
 	/// <param name="foregroundColor">The color of the text.</param>
@@ -21,7 +22,8 @@ public static class ConsoleWriterHelper
 	}
 
 	/// <summary>
-	///     Writes a message to the console with specified background and foreground colors, followed by a newline.
+	///     Writes a message to the console with specified background and
+	///     foreground colors, followed by a newline.
 	/// </summary>
 	/// <param name="message">The message to be written to the console.</param>
 	/// <param name="backgroundColor">The background color of the text.</param>
@@ -39,7 +41,8 @@ public static class ConsoleWriterHelper
 	}
 
 	/// <summary>
-	///     Writes a message to the console with specified background and foreground colors.
+	///     Writes a message to the console with specified background and
+	///     foreground colors.
 	/// </summary>
 	/// <param name="message">The message to be written to the console.</param>
 	/// <param name="backgroundColor">The background color of the text.</param>
@@ -78,11 +81,14 @@ public static class ConsoleWriterHelper
 	}
 
 	/// <summary>
-	///     Writes a key-value pair to the console with specified colors for the key and value.
+	///     Writes a key-value pair to the console with specified colors for the
+	///     key and value.
 	/// </summary>
 	/// <param name="key">The key part of the pair.</param>
 	/// <param name="value">The value part of the pair.</param>
-	/// <param name="separator">The separator string between the key and value.</param>
+	/// <param name="separator">
+	///     The separator string between the key and value.
+	///     </param>
 	/// <param name="keyForegroundColor">The color of the key text.</param>
 	/// <param name="valueForegroundColor">The color of the value text.</param>
 	// ReSharper disable once MemberCanBeMadeStatic.Local
@@ -106,17 +112,29 @@ public static class ConsoleWriterHelper
 	}
 
 	/// <summary>
-	///     Writes a key-value pair to the console with specified colors for the key, value, and separator.
+	///     Writes a key-value pair to the console with specified colors for the
+	///     key, value, and separator.
 	/// </summary>
 	/// <param name="key">The key part of the pair.</param>
 	/// <param name="value">The value part of the pair.</param>
-	/// <param name="separator">The separator string between the key and value.</param>
-	/// <param name="keyBackgroundColor">The background color of the key text.</param>
+	/// <param name="separator">
+	///     The separator string between the key and value.
+	///     </param>
+	/// <param name="keyBackgroundColor">
+	///     The background color of the key text.
+	///     </param>
 	/// <param name="keyForegroundColor">The color of the key text.</param>
-	/// <param name="valueBackgroundColor">The background color of the value text.</param>
+	/// <param name="valueBackgroundColor">
+	///     The background color of the value text.
+	///     </param>
 	/// <param name="valueForegroundColor">The color of the value text.</param>
-	/// <param name="separatorBackgroundColor">The background color of the separator text.</param>
-	/// <param name="separatorForegroundColor">The color of the separator text.</param>
+	/// <param name="separatorBackgroundColor">
+	///     The background color of the separator text.
+	///     </param>
+	/// <param name="separatorForegroundColor">
+	///     The color of the separator text.
+	///     </param>
+	// ReSharper disable once MemberCanBePrivate.Global
 	public static void WriteColoredKeyValue(
 		string key,
 		string value,
