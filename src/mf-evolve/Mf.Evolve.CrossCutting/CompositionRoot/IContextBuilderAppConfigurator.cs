@@ -10,8 +10,9 @@ public interface IContextBuilderAppConfigurator
 	/// <summary>
 	///     Configures the specified <see cref="CoconaApp" /> instance.
 	/// </summary>
-	/// <param name="app">The <see cref="CoconaApp" /> instance to configure.</param>
-	/// <returns>The configured <see cref="CoconaApp" /> instance.</returns>
+	/// <param name="app">
+	///     The <see cref="CoconaApp" /> instance to configure.
+	/// </param>
 	CoconaApp Configure(
 		CoconaApp app);
 }

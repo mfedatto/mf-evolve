@@ -14,13 +14,19 @@ using Microsoft.Extensions.Hosting;
 namespace Mf.Evolve.CrossCutting;
 
 /// <summary>
-///     Provides configuration, installation, and binding logic for the IO entry point, implementing the
+///     Provides configuration, installation, and binding logic for the IO entry
+///     point, implementing the
 ///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />,
-///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />, and
-///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderConfigBinder" /> interfaces.
+///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />,
+///     and
+///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderConfigBinder" />
+///     interfaces.
 /// </summary>
 // ReSharper disable once InconsistentNaming
-public class IOContextBuilder : IContextBuilderInstaller, IContextBuilderAppConfigurator, IContextBuilderConfigBinder
+public class IOContextBuilder
+	: IContextBuilderInstaller,
+		IContextBuilderAppConfigurator,
+		IContextBuilderConfigBinder
 {
 	#region IContextBuilderAppConfigurator
 

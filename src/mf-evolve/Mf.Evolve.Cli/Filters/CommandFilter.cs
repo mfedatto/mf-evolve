@@ -9,20 +9,25 @@ using Mono.Unix;
 namespace Mf.Evolve.Cli.Filters;
 
 /// <summary>
-///     Implements <see cref="ICommandFilter" /> to provide custom logic for CLI command execution.
-///     Displays a header with application details and handles error logging.
+///     Implements <see cref="ICommandFilter" /> to provide custom logic for CLI
+///     command execution. Displays a header with application details and
+///     handles error logging.
 /// </summary>
 public class CommandFilter : ICommandFilter
 {
+	private readonly CliConfig _cliConfig;
+	private readonly ILogger<CommandFilter> _logger;
 	private bool? _isAdmin;
 	private bool _isAdminEvaluated;
-	private readonly ILogger<CommandFilter> _logger;
-	private readonly CliConfig _cliConfig;
 
 	/// <summary>
-	///     Initializes a new instance of the <see cref="CommandFilter" /> class.
+	///     Initializes a new instance of the <see cref="CommandFilter" />
+	///     class.
 	/// </summary>
-	/// <param name="logger">Logger instance for error and informational logging.</param>
+	/// <param name="logger">
+	///     Logger instance for error and informational
+	///     logging.
+	/// </param>
 	/// <param name="cliConfig"></param>
 	public CommandFilter(
 		ILogger<CommandFilter> logger,
@@ -33,11 +38,14 @@ public class CommandFilter : ICommandFilter
 	}
 
 	/// <summary>
-	///     Executes the command filter, displaying headers and trailers around the command execution.
-	///     Logs any unhandled exceptions.
+	///     Executes the command filter, displaying headers and trailers around
+	///     the command execution. Logs any unhandled exceptions.
 	/// </summary>
 	/// <param name="ctx">The context for the command execution.</param>
-	/// <param name="next">The delegate representing the next middleware in the pipeline.</param>
+	/// <param name="next">
+	///     The delegate representing the next middleware in the
+	///     pipeline.
+	/// </param>
 	/// <returns>An integer representing the command execution result.</returns>
 	public async ValueTask<int> OnCommandExecutionAsync(
 		CoconaCommandExecutingContext ctx,
@@ -52,6 +60,7 @@ public class CommandFilter : ICommandFilter
 			var result = await next(ctx);
 
 			WriteFarewell();
+			WriteColorRegistrationMarks();
 
 			CliCancellationToken.IsAppEndingRegularlly = true;
 
@@ -68,8 +77,9 @@ public class CommandFilter : ICommandFilter
 	}
 
 	/// <summary>
-	///     Logs runtime information including OS details, platform architecture, command line, current directory, username,
-	///     and administrator status.
+	///     Logs runtime information including OS details, platform
+	///     architecture, command line, current directory, username, and
+	///     administrator status.
 	/// </summary>
 	private void WriteRuntimeInfo()
 	{
@@ -93,7 +103,8 @@ public class CommandFilter : ICommandFilter
 	}
 
 	/// <summary>
-	///     Writes the application header with system information to the console.
+	///     Writes the application header with system information to the
+	///     console.
 	/// </summary>
 	private void WriteHeader()
 	{
@@ -155,9 +166,13 @@ public class CommandFilter : ICommandFilter
 	}
 
 	/// <summary>
-	///     Gets a textual representation indicating if the current user is an administrator.
+	///     Gets a textual representation indicating if the current user is an
+	///     administrator.
 	/// </summary>
-	/// <returns>A string representing administrator status ("Yes", "No", or "n/a" if unknown).</returns>
+	/// <returns>
+	///     A string representing administrator status ("Yes", "No", or
+	///     "n/a" if unknown).
+	/// </returns>
 	private string GetIsAdministratorIndication()
 	{
 		bool? isAdmin = IsAdministrator();
@@ -175,7 +190,10 @@ public class CommandFilter : ICommandFilter
 	/// <summary>
 	///     Checks if the current user has administrator privileges.
 	/// </summary>
-	/// <returns>A nullable boolean indicating administrator status; null if status cannot be determined.</returns>
+	/// <returns>
+	///     A nullable boolean indicating administrator status; null if
+	///     status cannot be determined.
+	/// </returns>
 	// ReSharper disable once MemberCanBeMadeStatic.Local
 	private bool? IsAdministrator()
 	{
@@ -198,7 +216,10 @@ public class CommandFilter : ICommandFilter
 	/// <summary>
 	///     Writes a ruler line with an optional message.
 	/// </summary>
-	/// <param name="message">Optional message to display in the middle of the ruler line.</param>
+	/// <param name="message">
+	///     Optional message to display in the middle of the
+	///     ruler line.
+	/// </param>
 	/// <param name="size">The total width of the ruler line.</param>
 	/// <param name="pattern">The pattern used to fill the ruler line.</param>
 	// ReSharper disable once MemberCanBeMadeStatic.Local
@@ -245,14 +266,32 @@ public class CommandFilter : ICommandFilter
 	{
 		ConsoleWriterHelper.WriteColoredLine("""
 
-		                                    "Again, you can’t connect the dots looking forward; you can only connect them
-		                                    looking backward. So you have to trust that the dots will somehow connect in
-		                                    your future. You have to trust in something — your gut, destiny, life, karma,
-		                                    whatever. This approach has never let me down, and it has made all the
-		                                    difference in my life."
-		                                    Jobs, Steve. Commencement Address. Stanford University, 12 June 2005.
+		                                     "Again, you can’t connect the dots looking forward; you can only connect them
+		                                     looking backward. So you have to trust that the dots will somehow connect in
+		                                     your future. You have to trust in something — your gut, destiny, life, karma,
+		                                     whatever. This approach has never let me down, and it has made all the
+		                                     difference in my life."
+		                                     Jobs, Steve. Commencement Address. Stanford University, 12 June 2005.
 
-		                                    """,
+		                                     """,
 			ConsoleColor.White);
+	}
+
+	/// <summary>
+	///     Writes a sequence of colored registration marks to the console to
+	///     display a set of color indicators.
+	/// </summary>
+	// ReSharper disable once MemberCanBeMadeStatic.Local
+	private void WriteColorRegistrationMarks()
+	{
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.Black);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.White);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.Black);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.Green);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.Cyan);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.Magenta);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.White);
+		ConsoleWriterHelper.WriteColored("\u2588", ConsoleColor.Black);
+		ConsoleWriterHelper.WriteColoredLine("\u2588", ConsoleColor.White);
 	}
 }

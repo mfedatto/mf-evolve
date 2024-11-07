@@ -10,8 +10,9 @@ namespace Mf.Evolve.Cli.Extensions;
 public class CommandDoesNotImplementICommandTParamSetException : Exception
 {
 	/// <summary>
-	///     Initializes a new instance of the <see cref="CommandDoesNotImplementICommandTParamSetException" /> class
-	///     with a default error message.
+	///     Initializes a new instance of the
+	///     <see cref="CommandDoesNotImplementICommandTParamSetException" />
+	///     class with a default error message.
 	/// </summary>
 	// ReSharper disable once UnusedMember.Global
 	public CommandDoesNotImplementICommandTParamSetException()
@@ -20,12 +21,14 @@ public class CommandDoesNotImplementICommandTParamSetException : Exception
 	}
 
 	/// <summary>
-	///     Initializes a new instance of the <see cref="CommandDoesNotImplementICommandTParamSetException" /> class
-	///     with a specified command type.
+	///     Initializes a new instance of the
+	///     <see cref="CommandDoesNotImplementICommandTParamSetException" />
+	///     class with a specified command type.
 	/// </summary>
 	/// <param name="commandType">
 	///     The type of the command that is missing the
-	///     <see cref="Mf.Evolve.Cli.Commands.ICommand{TParamSet}" /> implementation.
+	///     <see cref="Mf.Evolve.Cli.Commands.ICommand{TParamSet}" />
+	///     implementation.
 	/// </param>
 	// ReSharper disable once UnusedMember.Global
 	public CommandDoesNotImplementICommandTParamSetException(
@@ -35,12 +38,14 @@ public class CommandDoesNotImplementICommandTParamSetException : Exception
 	}
 
 	/// <summary>
-	///     Initializes a new instance of the <see cref="CommandDoesNotImplementICommandTParamSetException" /> class
-	///     with a specified command type.
+	///     Initializes a new instance of the
+	///     <see cref="CommandDoesNotImplementICommandTParamSetException" />
+	///     class with a specified command type.
 	/// </summary>
 	/// <param name="commandType">
 	///     The type of the command that is missing the
-	///     <see cref="Mf.Evolve.Cli.Commands.ICommand{TParamSet}" /> implementation.
+	///     <see cref="Mf.Evolve.Cli.Commands.ICommand{TParamSet}" />
+	///     implementation.
 	/// </param>
 	// ReSharper disable once UnusedMember.Global
 	public CommandDoesNotImplementICommandTParamSetException(

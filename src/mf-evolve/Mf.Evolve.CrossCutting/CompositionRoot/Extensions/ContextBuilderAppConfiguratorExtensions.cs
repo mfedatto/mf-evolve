@@ -8,14 +8,16 @@ namespace Mf.Evolve.CrossCutting.CompositionRoot.Extensions;
 public static class ContextBuilderAppConfiguratorExtensions
 {
 	/// <summary>
-	///     Configures the specified <see cref="CoconaApp" /> using a context builder.
+	///     Configures the specified <see cref="CoconaApp" /> using a context
+	///     builder.
 	/// </summary>
 	/// <typeparam name="TStartupContextBuilder">
 	///     The type of the context builder, which must implement
 	///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />.
 	/// </typeparam>
-	/// <param name="app">The instance of <see cref="CoconaApp" /> to configure.</param>
-	/// <returns>The configured <see cref="CoconaApp" /> instance.</returns>
+	/// <param name="app">
+	///     The instance of <see cref="CoconaApp" /> to configure.
+	/// </param>
 	public static CoconaApp ConfigureApp<TStartupContextBuilder>(
 		this CoconaApp app)
 		where TStartupContextBuilder : IContextBuilderAppConfigurator, new()
@@ -24,14 +26,16 @@ public static class ContextBuilderAppConfiguratorExtensions
 	}
 
 	/// <summary>
-	///     Configures the <see cref="CoconaApp" /> using the specified context builder.
+	///     Configures the <see cref="CoconaApp" /> using the specified context
+	///     builder.
 	/// </summary>
 	/// <typeparam name="TStartupContextBuilder">
 	///     The type of the context builder, which must implement
 	///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderAppConfigurator" />.
 	/// </typeparam>
-	/// <param name="app">The instance of <see cref="CoconaApp" /> to configure.</param>
-	/// <returns>The configured <see cref="CoconaApp" /> instance.</returns>
+	/// <param name="app">
+	///     The instance of <see cref="CoconaApp" /> to configure.
+	/// </param>
 	private static CoconaApp Configure<TStartupContextBuilder>(
 		this CoconaApp app)
 		where TStartupContextBuilder : IContextBuilderAppConfigurator, new()

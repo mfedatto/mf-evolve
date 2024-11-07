@@ -4,22 +4,23 @@ using Microsoft.Extensions.Configuration;
 namespace Mf.Evolve.CrossCutting.CompositionRoot.Extensions;
 
 /// <summary>
-///     Provides extension methods for configuring a <see cref="CoconaAppBuilder" /> with composition root services.
+///     Provides extension methods for configuring a
+///     <see cref="CoconaAppBuilder" /> with composition root services.
 /// </summary>
 public static class ContextBuilderInstallerExtensions
 {
 	/// <summary>
-	///     Adds a composition root to the <see cref="CoconaAppBuilder" /> using a specified context builder.
+	///     Adds a composition root to the <see cref="CoconaAppBuilder" /> using
+	///     a specified context builder.
 	/// </summary>
 	/// <typeparam name="TStartupContextBuilder">
 	///     The type of the context builder, which must implement
 	///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />.
 	/// </typeparam>
 	/// <param name="builder">
-	///     The instance of <see cref="CoconaAppBuilder" /> to which the composition root is
-	///     added.
+	///     The instance of <see cref="CoconaAppBuilder" /> to which the
+	///     composition root is added.
 	/// </param>
-	/// <returns>The updated <see cref="CoconaAppBuilder" /> instance.</returns>
 	// ReSharper disable once UnusedMethodReturnValue.Global
 	public static CoconaAppBuilder AddCompositionRoot<TStartupContextBuilder>(
 		this CoconaAppBuilder builder)
@@ -41,9 +42,13 @@ public static class ContextBuilderInstallerExtensions
 	///     The type of the context builder, which must implement
 	///     <see cref="Mf.Evolve.CrossCutting.CompositionRoot.IContextBuilderInstaller" />.
 	/// </typeparam>
-	/// <param name="builder">The instance of <see cref="CoconaAppBuilder" /> used to build the context.</param>
-	/// <param name="configuration">The configuration used to bind settings to the context.</param>
-	/// <returns>The updated <see cref="CoconaAppBuilder" /> instance.</returns>
+	/// <param name="builder">
+	///     The instance of <see cref="CoconaAppBuilder" /> used to build the
+	///     context.
+	/// </param>
+	/// <param name="configuration">
+	///     The configuration used to bind settings to the context.
+	/// </param>
 	// ReSharper disable once UnusedMethodReturnValue.Local
 	public static CoconaAppBuilder BuildContext<TContextBuilderInstaller>(
 		this CoconaAppBuilder builder,
@@ -68,10 +73,13 @@ public static class ContextBuilderInstallerExtensions
 	}
 
 	/// <summary>
-	///     Builds the application's configuration by loading settings from JSON files and environment variables.
+	///     Builds the application's configuration by loading settings from JSON
+	///     files and environment variables.
 	/// </summary>
-	/// <param name="builder">The instance of <see cref="CoconaAppBuilder" /> used to build the configuration.</param>
-	/// <returns>An <see cref="IConfiguration" /> instance containing the application settings.</returns>
+	/// <param name="builder">
+	///     The instance of <see cref="CoconaAppBuilder" /> used to build the
+	///     configuration.
+	/// </param>
 	private static IConfiguration BuildConfiguration(
 		this CoconaAppBuilder builder)
 	{

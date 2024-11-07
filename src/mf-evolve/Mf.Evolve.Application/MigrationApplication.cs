@@ -4,10 +4,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Mf.Evolve.Application;
 
-/// <summary>
-///     Provides an application layer implementation for managing and executing migrations.
-///     This class encapsulates migration logic, enabling synchronous and asynchronous execution.
-/// </summary>
 public class MigrationApplication : IMigrationApplication
 {
 	// ReSharper disable once NotAccessedField.Local
@@ -25,8 +21,6 @@ public class MigrationApplication : IMigrationApplication
 	/// <summary>
 	///     Executes a migration process from a specified file path.
 	/// </summary>
-	/// <param name="filePath">The path to the migration file to execute.</param>
-	/// <param name="cancellationToken">A token to observe for cancellation requests.</param>
 	public void Exec(
 		string filePath,
 		CancellationToken cancellationToken)
@@ -39,11 +33,9 @@ public class MigrationApplication : IMigrationApplication
 	}
 
 	/// <summary>
-	///     Asynchronously executes a migration process from a specified file path.
+	///     Asynchronously executes a migration process from a specified file
+	///     path.
 	/// </summary>
-	/// <param name="filePath">The path to the migration file to execute.</param>
-	/// <param name="cancellationToken">A token to observe for cancellation requests.</param>
-	/// <returns>A task representing the asynchronous migration execution operation.</returns>
 	public async Task ExecAsync(
 		string filePath,
 		CancellationToken cancellationToken)
@@ -54,6 +46,5 @@ public class MigrationApplication : IMigrationApplication
 			await _migrationDefinitionsService.GetDefinitionsAsync(
 				filePath,
 				cancellationToken);
-		return;
 	}
 }

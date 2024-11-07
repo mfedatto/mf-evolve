@@ -37,8 +37,8 @@ public class ExecCommand : ICommand<EvolveParamSet>
 	public string Name => "exec";
 
 	/// <summary>
-	///     Executes the exec command with the specified <see cref="EvolveParamSet" />
-	///     parameters.
+	///     Executes the exec command with the specified
+	///     <see cref="EvolveParamSet" /> parameters.
 	/// </summary>
 	/// <param name="paramSet">The parameter set for the exec command.</param>
 	public void Run(

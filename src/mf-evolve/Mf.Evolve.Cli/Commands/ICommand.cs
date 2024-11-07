@@ -3,7 +3,8 @@ using Cocona;
 namespace Mf.Evolve.Cli.Commands;
 
 /// <summary>
-///     Defines a contract for a command that can be executed with a specified set of parameters.
+///     Defines a contract for a command that can be executed with a specified
+///     set of parameters.
 /// </summary>
 /// <typeparam name="TParamSet">
 ///     The type of the parameter set, which must implement
