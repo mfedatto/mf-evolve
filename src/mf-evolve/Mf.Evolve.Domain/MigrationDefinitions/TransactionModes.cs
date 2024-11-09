@@ -19,12 +19,14 @@ public enum TransactionModes
 	CommitEach,
 
 	/// <summary>
-	///     Represents a mode where all transactions are committed as a single unit.
+	///     Represents a mode where all transactions are committed as a single
+	///     unit.
 	/// </summary>
 	CommitAll,
 
 	/// <summary>
-	///     Represents a mode where all transactions are rolled back regardless if it was success or not.
+	///     Represents a mode where all transactions are rolled back regardless
+	///     if it was success or not.
 	/// </summary>
 	RollbackAll
 }

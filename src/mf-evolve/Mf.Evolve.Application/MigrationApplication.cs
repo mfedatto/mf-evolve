@@ -46,5 +46,9 @@ public class MigrationApplication : IMigrationApplication
 			await _migrationDefinitionsService.GetDefinitionsAsync(
 				filePath,
 				cancellationToken);
+		IMigrationDefinitions[] flattenedDefinitionsList =
+			_migrationDefinitionsService.CreateFlattenedDefinitionsList(
+				migrationDefinitionsList,
+				cancellationToken);
 	}
 }

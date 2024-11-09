@@ -20,7 +20,14 @@ public class WorkingDirectoryTemplateFactory
 			placeholderSuffix,
 			placeholders);
 	}
-
+	/// <summary>
+	///     Creates an instance of <see cref="IWorkingDirectoryTemplate"/> from
+	///     a parsed object.
+	/// </summary>
+	/// <exception cref="UnexpectedDeserializedObjectTypeException">
+	///     Thrown when the parsed object is not of the expected type
+	///     <see cref="Dictionary{TKey, TValue}"/>.
+	/// </exception>
 	// ReSharper disable once MemberCanBeMadeStatic.Global
 	public IWorkingDirectoryTemplate Create(
 		object? parsedObject)
@@ -38,6 +45,14 @@ public class WorkingDirectoryTemplateFactory
 			ParsePlaceholders(dictionaryItem));
 	}
 
+	/// <summary>
+	///     Creates an instance of <see cref="IWorkingDirectoryTemplate"/> from
+	///     a parsed object.
+	/// </summary>
+	/// <exception cref="UnexpectedDeserializedObjectTypeException">
+	///     Thrown when the parsed object is not of the expected type
+	///     <see cref="Dictionary{TKey, TValue}"/>.
+	/// </exception>
 	private string? ParseWorkingDirectory(
 		Dictionary<object, object> dictionaryWorkingDirectoryTemplate)
 	{
@@ -48,7 +63,10 @@ public class WorkingDirectoryTemplateFactory
 			? rawValue.ToString()
 			: null;
 	}
-
+	/// <summary>
+	///     Parses the "PlaceholderPrefix" value from the provided dictionary,
+	///     if available.
+	/// </summary>
 	private string? ParsePlaceholderPrefix(
 		Dictionary<object, object> dictionaryWorkingDirectoryTemplate)
 	{
@@ -59,7 +77,11 @@ public class WorkingDirectoryTemplateFactory
 			? rawValue.ToString()
 			: null;
 	}
-
+	
+	/// <summary>
+	///     Parses the "PlaceholderSuffix" value from the provided dictionary,
+	///     if available.
+	/// </summary>
 	private string? ParsePlaceholderSuffix(
 		Dictionary<object, object> dictionaryWorkingDirectoryTemplate)
 	{
@@ -71,6 +93,10 @@ public class WorkingDirectoryTemplateFactory
 			: null;
 	}
 
+	/// <summary>
+	///     Parses the "Placeholders" value from the provided dictionary,
+	///     returning a dictionary of key-value pairs if available.
+	/// </summary>
 	// ReSharper disable once MemberCanBeMadeStatic.Local
 	private Dictionary<string, string>? ParsePlaceholders(
 		Dictionary<object, object> dictionaryWorkingDirectoryTemplate)

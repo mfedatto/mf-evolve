@@ -24,6 +24,10 @@ public class MigrationDefinitionsService : IMigrationDefinitionsService
 		_factory = factory;
 	}
 
+	/// <summary>
+	///     Retrieves an array of migration definitions from a specified file
+	///     path.
+	/// </summary>
 	public IMigrationDefinitions[] GetDefinitions(
 		string filePath,
 		CancellationToken cancellationToken)
@@ -37,6 +41,10 @@ public class MigrationDefinitionsService : IMigrationDefinitionsService
 		return result;
 	}
 
+	/// <summary>
+	///     Asynchronously retrieves an array of migration definitions from a
+	///     specified file path.
+	/// </summary>
 	public async Task<IMigrationDefinitions[]> GetDefinitionsAsync(
 		string filePath,
 		CancellationToken cancellationToken)
@@ -50,5 +58,16 @@ public class MigrationDefinitionsService : IMigrationDefinitionsService
 
 		return result
 		       ?? [];
+	}
+
+	/// <summary>
+	///     Creates a flattened list of migration definitions from a provided
+	///     array of definitions.
+	/// </summary>
+	public IMigrationDefinitions[] CreateFlattenedDefinitionsList(
+		IMigrationDefinitions[] definitionsList,
+		CancellationToken cancellationToken)
+	{
+		return _factory.CreateFlattenedList(definitionsList);
 	}
 }

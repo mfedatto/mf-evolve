@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Mf.Evolve.Domain.Common;
 using Mf.Evolve.Domain.MigrationDefinitions;
 
 namespace Mf.Evolve.Domain.ConnectionStringTemplate;
@@ -21,6 +22,12 @@ public class ConnectionStringTemplateFactory
 			placeholders);
 	}
 
+	#region Parse from Yaml
+
+	/// <summary>
+	///     Creates a connection string template from a deserialized object.
+	/// </summary>
+	/// <exception cref="UnexpectedDeserializedObjectTypeException"></exception>
 	// ReSharper disable once MemberCanBeMadeStatic.Global
 	public IConnectionStringTemplate Create(
 		object? parsedObject)
@@ -38,6 +45,9 @@ public class ConnectionStringTemplateFactory
 			ParsePlaceholders(dictionaryItem));
 	}
 
+	/// <summary>
+	///     Parses the connection string from the provided dictionary.
+	/// </summary>
 	private string? ParseConnectionString(
 		Dictionary<object, object> dictionaryConnectionStringTemplate)
 	{
@@ -49,6 +59,9 @@ public class ConnectionStringTemplateFactory
 			: null;
 	}
 
+	/// <summary>
+	///     Parses the placeholder prefix from the provided dictionary.
+	/// </summary>
 	private string? ParsePlaceholderPrefix(
 		Dictionary<object, object> dictionaryConnectionStringTemplate)
 	{
@@ -60,6 +73,9 @@ public class ConnectionStringTemplateFactory
 			: null;
 	}
 
+	/// <summary>
+	///     Parses the placeholder suffix from the provided dictionary.
+	/// </summary>
 	private string? ParsePlaceholderSuffix(
 		Dictionary<object, object> dictionaryConnectionStringTemplate)
 	{
@@ -71,6 +87,9 @@ public class ConnectionStringTemplateFactory
 			: null;
 	}
 
+	/// <summary>
+	///     Parses the placeholders from the provided dictionary.
+	/// </summary>
 	// ReSharper disable once MemberCanBeMadeStatic.Local
 	private Dictionary<string, string>? ParsePlaceholders(
 		Dictionary<object, object> dictionaryConnectionStringTemplate)
@@ -107,6 +126,8 @@ public class ConnectionStringTemplateFactory
 
 		return result;
 	}
+
+	#endregion
 }
 
 file record ConnectionStringTemplateVo(

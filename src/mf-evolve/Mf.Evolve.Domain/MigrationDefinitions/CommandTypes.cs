@@ -3,7 +3,8 @@ using System.Diagnostics.CodeAnalysis;
 namespace Mf.Evolve.Domain.MigrationDefinitions;
 
 /// <summary>
-///     Specifies the types of commands that can be executed in the migration process.
+///     Specifies the types of commands that can be executed in the migration
+///     process.
 /// </summary>
 [SuppressMessage("ReSharper", "UnusedMember.Global")]
 public enum CommandTypes

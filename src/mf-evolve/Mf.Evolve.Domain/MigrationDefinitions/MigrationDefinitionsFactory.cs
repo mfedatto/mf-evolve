@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Mf.Evolve.Domain.Common;
 using Mf.Evolve.Domain.ConnectionStringTemplate;
 using Mf.Evolve.Domain.WorkingDirectoryTemplate;
 using YamlDotNet.Serialization;
@@ -6,14 +7,15 @@ using YamlDotNet.Serialization;
 namespace Mf.Evolve.Domain.MigrationDefinitions;
 
 /// <summary>
-///     Factory class for creating instances of <see cref="IMigrationDefinitions" />.
+///     Factory class for creating instances of
+///     <see cref="IMigrationDefinitions" />.
 /// </summary>
 [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Global")]
 [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
 public class MigrationDefinitionsFactory
 {
-	private readonly ConnectionStringTemplateFactory _connectionStringTemplateFactory;
 	private readonly IDeserializer _deserializer;
+	private readonly ConnectionStringTemplateFactory _connectionStringTemplateFactory;
 	private readonly WorkingDirectoryTemplateFactory _workingDirectoryTemplateFactory;
 
 	public MigrationDefinitionsFactory(
@@ -27,44 +29,10 @@ public class MigrationDefinitionsFactory
 	}
 
 	/// <summary>
-	///     Creates a new instance of <see cref="IMigrationDefinitions" /> with the specified parameters.
+	///     Creates a new instance of <see cref="IMigrationDefinitions" /> with
+	///     the specified parameters.
 	/// </summary>
-	/// <param name="dbms">The DBMS as defined by Evolve.</param>
-	/// <param name="connectionStringTemplate">An <see cref="IConnectionStringTemplate" /> for the database connection string.</param>
-	/// <param name="workingDirectoryTemplate">
-	///     An <see cref="IWorkingDirectoryTemplate" /> for the Evolve execution working
-	///     directory.
-	/// </param>
-	/// <param name="locations">An array of locations where the migrations are defined.</param>
-	/// <param name="schemas">An array of schemas associated with the migrations.</param>
-	/// <param name="command">The command type to be executed.</param>
-	/// <param name="transactionMode">The transaction mode to use during migration.</param>
-	/// <param name="eraseDisabled">Indicates whether the erase operation is disabled.</param>
-	/// <param name="eraseOnValidationError">Indicates whether to erase on validation error.</param>
-	/// <param name="startVersion">The starting version for the migration.</param>
-	/// <param name="targetVersion">The target version for the migration, if any.</param>
-	/// <param name="outOfOrder">Indicates whether to allow out-of-order migrations.</param>
-	/// <param name="skipNextMigrations">Indicates whether to skip the next migrations.</param>
-	/// <param name="retryRepeatableMigrationsUntilNoError">
-	///     Indicates whether to retry repeatable migrations until no error
-	///     occurs.
-	/// </param>
-	/// <param name="embeddedResourceAssemblies">An array of embedded resource assemblies.</param>
-	/// <param name="embeddedResourceFilters">An array of filters for embedded resources.</param>
-	/// <param name="commandTimeout">Optional timeout for the command execution.</param>
-	/// <param name="encoding">The encoding to be used for migration scripts.</param>
-	/// <param name="sqlMigrationPrefix">The prefix to use for SQL migration files.</param>
-	/// <param name="sqlRepeatableMigrationPrefix">The prefix for repeatable SQL migration files.</param>
-	/// <param name="sqlMigrationSeparator">The separator used in SQL migration files.</param>
-	/// <param name="sqlMigrationSuffix">The suffix to use for SQL migration files.</param>
-	/// <param name="metadataTableSchema">Optional schema for the metadata table.</param>
-	/// <param name="metadataTableName">Optional name for the metadata table.</param>
-	/// <param name="placeholderPrefix">The prefix for placeholders in migration scripts.</param>
-	/// <param name="placeholderSuffix">The suffix for placeholders in migration scripts.</param>
-	/// <param name="placeholders">An array of dictionaries for placeholder values.</param>
-	/// <param name="enableClusterMode">Indicates whether cluster mode is enabled.</param>
-	/// <param name="children">Optional array of child migration definitions.</param>
-	/// <returns>An instance of <see cref="IMigrationDefinitions" />.</returns>
+	// ReSharper disable once MemberCanBePrivate.Global
 	public IMigrationDefinitions Create(
 		EvolveDbms? dbms,
 		IConnectionStringTemplate? connectionStringTemplate,
@@ -130,11 +98,189 @@ public class MigrationDefinitionsFactory
 		return result;
 	}
 
+	#region Create flattened list
+
+	/// <summary>
+	///     Creates a flattened list of migration definitions from a provided
+	///     array of definitions.
+	/// </summary>
 	public IMigrationDefinitions[] CreateFlattenedList(
 		IMigrationDefinitions[] migrationDefinitionsList)
 	{
-		throw new NotImplementedException();
+		List<IMigrationDefinitions> result = [];
+
+		foreach (IMigrationDefinitions parent in migrationDefinitionsList)
+		{
+			IMigrationDefinitions[] flattenedListFromParent =
+				CreateFlattenedListFromParent(parent);
+
+			result.AddRange(flattenedListFromParent);
+		}
+
+		return result
+			.ToArray();
 	}
+
+	/// <summary>
+	///     Creates a flattened list of migration definitions from a provided
+	///     parent definition. This method is recursive.
+	/// </summary>
+	private IMigrationDefinitions[] CreateFlattenedListFromParent(
+		IMigrationDefinitions parent)
+	{
+		if (parent.Children is null
+		    || parent.Children.Length == 0)
+		{
+			return [parent];
+		}
+
+		List<IMigrationDefinitions> result = [];
+
+		foreach (IMigrationDefinitions child in parent.Children
+			         .SelectMany(CreateFlattenedListFromParent))
+		{
+			IMigrationDefinitions flattenedChild =
+				CreateFlattenChild(
+					parent,
+					child);
+
+			result.Add(flattenedChild);
+		}
+
+		return result
+			.ToArray();
+	}
+
+	/// <summary>
+	///     Creates a new instance of <see cref="IMigrationDefinitions" /> by 
+	///     flattening the child definitions into the parent context. This 
+	///     method uses the <see cref="InheritanceHelper{TContext}" /> to merge 
+	///     values from the parent and child contexts, ensuring that child 
+	///     values override parent values where applicable.
+	/// </summary>
+	[SuppressMessage("ReSharper", "RedundantTypeArgumentsOfMethod")]
+	private IMigrationDefinitions CreateFlattenChild(
+		IMigrationDefinitions parent,
+		IMigrationDefinitions child)
+	{
+		InheritanceHelper<IMigrationDefinitions> definitionsInheritanceHelper =
+			new(parent, child);
+
+		IMigrationDefinitions flattenedChild =
+			Create(
+				dbms: definitionsInheritanceHelper
+					.Get<EvolveDbms?>(ih => ih.Dbms),
+				connectionStringTemplate: CreateFlattenConnectionStringTemplate(
+					parent,
+					child),
+				workingDirectoryTemplate: CreateFlattenWorkingDirectoryTemplate(
+					parent,
+					child),
+				locations: definitionsInheritanceHelper
+					.GetNullableStringArray(ih => ih.Locations),
+				schemas: definitionsInheritanceHelper
+					.GetNullableStringArray(ih => ih.Schemas),
+				placeholderPrefix: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.PlaceholderPrefix),
+				placeholderSuffix: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.PlaceholderSuffix),
+				placeholders: definitionsInheritanceHelper
+					.MergeNullable<string, string>(ih => ih.Placeholders),
+				command: definitionsInheritanceHelper
+					.Get<CommandTypes?>(ih => ih.Command),
+				transactionMode: definitionsInheritanceHelper
+					.Get<TransactionModes?>(ih => ih.TransactionMode),
+				eraseDisabled: definitionsInheritanceHelper
+					.GetNullableBoolean(ih => ih.EraseDisabled),
+				eraseOnValidationError: definitionsInheritanceHelper
+					.GetNullableBoolean(ih => ih.EraseOnValidationError),
+				startVersion: definitionsInheritanceHelper
+					.GetNullableInt32(ih => ih.StartVersion),
+				targetVersion: definitionsInheritanceHelper
+					.GetNullableInt32(ih => ih.TargetVersion),
+				outOfOrder: definitionsInheritanceHelper
+					.GetNullableBoolean(ih => ih.OutOfOrder),
+				skipNextMigrations: definitionsInheritanceHelper
+					.GetNullableBoolean(ih => ih.SkipNextMigrations),
+				retryRepeatableMigrationsUntilNoError: definitionsInheritanceHelper
+					.GetNullableBoolean(ih => ih.RetryRepeatableMigrationsUntilNoError),
+				embeddedResourceAssemblies: definitionsInheritanceHelper
+					.GetNullableStringArray(ih => ih.EmbeddedResourceAssemblies),
+				embeddedResourceFilters: definitionsInheritanceHelper
+					.GetNullableStringArray(ih => ih.EmbeddedResourceFilters),
+				commandTimeout: definitionsInheritanceHelper
+					.GetNullableInt32(ih => ih.CommandTimeout),
+				encoding: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.Encoding),
+				sqlMigrationPrefix: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.SqlMigrationPrefix),
+				sqlRepeatableMigrationPrefix: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.SqlRepeatableMigrationPrefix),
+				sqlMigrationSeparator: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.SqlMigrationSeparator),
+				sqlMigrationSuffix: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.SqlMigrationSuffix),
+				metadataTableSchema: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.MetadataTableSchema),
+				metadataTableName: definitionsInheritanceHelper
+					.GetNullableString(ih => ih.MetadataTableName),
+				enableClusterMode: definitionsInheritanceHelper
+					.GetNullableBoolean(ih => ih.EnableClusterMode),
+				children: null);
+		return flattenedChild;
+	}
+
+	/// <summary>
+	///     Creates a flattened connection string template by merging the parent
+	///     and child contexts.
+	/// </summary>
+	private IConnectionStringTemplate CreateFlattenConnectionStringTemplate(IMigrationDefinitions parent,
+		IMigrationDefinitions child)
+	{
+		InheritanceHelper<IConnectionStringTemplate?> connectionStringInheritanceHelper =
+			new(
+				parent.ConnectionStringTemplate,
+				child.ConnectionStringTemplate);
+		IConnectionStringTemplate result =
+			_connectionStringTemplateFactory.Create(
+				connectionStringInheritanceHelper
+					.GetNullableString(ih => ih?.ConnectionString),
+				connectionStringInheritanceHelper
+					.GetNullableString(ih => ih?.PlaceholderPrefix),
+				connectionStringInheritanceHelper
+					.GetNullableString(ih => ih?.PlaceholderSuffix),
+				connectionStringInheritanceHelper
+					.MergeNullable(ih => ih?.Placeholders));
+
+		return result;
+	}
+
+	/// <summary>
+	///     Creates a flattened working directory template by merging the parent
+	///     and child contexts.
+	/// </summary>
+	private IWorkingDirectoryTemplate CreateFlattenWorkingDirectoryTemplate(IMigrationDefinitions parent,
+		IMigrationDefinitions child)
+	{
+		InheritanceHelper<IWorkingDirectoryTemplate?> workingDirectoryInheritanceHelper =
+			new(
+				parent.WorkingDirectoryTemplate,
+				child.WorkingDirectoryTemplate);
+		IWorkingDirectoryTemplate result =
+			_workingDirectoryTemplateFactory.Create(
+				workingDirectoryInheritanceHelper
+					.GetNullableString(ih => ih?.WorkingDirectory),
+				workingDirectoryInheritanceHelper
+					.GetNullableString(ih => ih?.PlaceholderPrefix),
+				workingDirectoryInheritanceHelper
+					.GetNullableString(ih => ih?.PlaceholderSuffix),
+				workingDirectoryInheritanceHelper
+					.MergeNullable(ih => ih?.Placeholders));
+
+		return result;
+	}
+
+	#endregion
 
 	#region Create from Yaml
 
